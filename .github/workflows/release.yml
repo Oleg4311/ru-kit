@@ -1,0 +1,40 @@
+name: Release
+on:
+  push:
+    tags: ["v*"]
+permissions:
+  contents: write
+  id-token: write
+  attestations: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Версия в package.json должна совпадать с тегом
+        run: test "v$(node -p "require('./package.json').version")" = "$GITHUB_REF_NAME"
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      - run: node scripts/pack-smoke.mjs
+      - name: Сборка tarball
+        run: |
+          mkdir dist-pack
+          npm pack --pack-destination dist-pack
+          (cd dist-pack && sha256sum *.tgz > SHA256SUMS)
+      - name: Подтверждение происхождения (provenance)
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4
+        with:
+          subject-path: dist-pack/*.tgz
+      - name: Публикация релиза
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >
+          gh release create "$GITHUB_REF_NAME" dist-pack/*.tgz dist-pack/SHA256SUMS
+          --title "ru-kit $GITHUB_REF_NAME"
+          --notes "Пакет ru-kit (tarball). Установка: npm install https://github.com/Oleg4311/ru-kit/releases/download/$GITHUB_REF_NAME/ru-kit-${GITHUB_REF_NAME#v}.tgz. Проверка: sha256sum -c SHA256SUMS и gh attestation verify <файл> --repo Oleg4311/ru-kit."

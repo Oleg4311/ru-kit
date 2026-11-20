@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ru-kit — песочница</title>
+<meta name="description" content="Числа и суммы прописью, склонение по числу, проверка ИНН, СНИЛС и ОГРН, транслитерация и телефоны: библиотека ru-kit без зависимостей, пробуйте прямо в браузере.">
+<meta property="og:title" content="ru-kit — русская локаль без зависимостей">
+<meta property="og:description" content="Прописью, склонение по числу, ИНН/СНИЛС/ОГРН, транслитерация, телефоны. Всё считается в браузере.">
+<meta property="og:type" content="website">
+<style>
+:root{--bg:#f7f6f3;--card:#fff;--ink:#1d1d1b;--mute:#5b5a55;--line:#d9d6cd;--acc:#0b5cad;--ok:#1b6e3a;--bad:#b3261e;--code:#eeece6}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--card:#201f1d;--ink:#eeece6;--mute:#aaa79d;--line:#3a3935;--acc:#7db3f0;--ok:#6fd08f;--bad:#ff9a92;--code:#2b2a27}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header,main,footer{max-width:960px;margin:0 auto;padding:0 16px}
+header{padding-top:28px}
+h1{margin:0 0 4px;font-size:1.8rem}
+.lead{color:var(--mute);margin:0 0 20px;max-width:62ch}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px;padding-bottom:24px}
+section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+h2{margin:0 0 4px;font-size:1.1rem}
+.hint{margin:0 0 12px;color:var(--mute);font-size:.9rem}
+label{display:block;font-size:.85rem;color:var(--mute);margin:10px 0 4px}
+input,select,textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+output{display:block;margin-top:12px;padding:10px 12px;background:var(--code);border-radius:8px;min-height:2.6em;overflow-wrap:anywhere}
+.ok{color:var(--ok);font-weight:600}.bad{color:var(--bad);font-weight:600}
+pre{background:var(--code);padding:12px;border-radius:8px;overflow-x:auto;font-size:.88rem}
+a{color:var(--acc)}
+footer{padding-bottom:32px;color:var(--mute);font-size:.9rem}
+</style>
+</head>
+<body>
+<header>
+  <h1>ru-kit</h1>
+  <p class="lead">Русская локаль для JavaScript без зависимостей. Всё ниже считается прямо в вашем браузере той же библиотекой, которую можно поставить в проект. <a href="https://github.com/Oleg4311/ru-kit">Код и документация на GitHub</a>.</p>
+</header>
+<main>
+<div class="grid">
+
+<section aria-labelledby="h-plural">
+  <h2 id="h-plural">Склонение по числу</h2>
+  <p class="hint">«1 яблоко, 2 яблока, 5 яблок, 11 яблок, 21 яблоко».</p>
+  <label for="pl-n">Число</label>
+  <input id="pl-n" type="text" inputmode="decimal" value="21">
+  <div class="row">
+    <div><label for="pl-1">Один</label><input id="pl-1" value="яблоко"></div>
+    <div><label for="pl-2">Два</label><input id="pl-2" value="яблока"></div>
+    <div><label for="pl-5">Пять</label><input id="pl-5" value="яблок"></div>
+  </div>
+  <output id="pl-out" for="pl-n pl-1 pl-2 pl-5"></output>
+</section>
+
+<section aria-labelledby="h-words">
+  <h2 id="h-words">Число прописью</h2>
+  <p class="hint">Целые до 10²¹; род важен для «одна/один/одно».</p>
+  <div class="row2">
+    <div><label for="w-n">Число</label><input id="w-n" type="text" inputmode="numeric" value="2026"></div>
+    <div><label for="w-g">Род</label>
+      <select id="w-g"><option value="m">мужской (один)</option><option value="f">женский (одна)</option><option value="n">средний (одно)</option></select></div>
+  </div>
+  <output id="w-out" for="w-n w-g"></output>
+</section>
+
+<section aria-labelledby="h-money">
+  <h2 id="h-money">Сумма прописью</h2>
+  <p class="hint">Строка разбирается точно, без ошибок плавающей точки: «1,005» → 1 рубль 01 копейка.</p>
+  <div class="row2">
+    <div><label for="m-n">Сумма</label><input id="m-n" type="text" inputmode="decimal" value="21 000,02"></div>
+    <div><label for="m-c">Валюта</label><select id="m-c"><option>RUB</option><option>USD</option><option>EUR</option></select></div>
+  </div>
+  <output id="m-out" for="m-n m-c"></output>
+</section>
+
+<section aria-labelledby="h-valid">
+  <h2 id="h-valid">Проверка реквизитов</h2>
+  <p class="hint">Проверяется контрольная арифметика, а не существование организации. Попробуйте ИНН 7707083893.</p>
+  <div class="row2">
+    <div><label for="v-t">Что проверяем</label>
+      <select id="v-t"><option value="inn">ИНН</option><option value="snils">СНИЛС</option><option value="ogrn">ОГРН / ОГРНИП</option><option value="kpp">КПП</option><option value="bik">БИК</option></select></div>
+    <div><label for="v-n">Номер</label><input id="v-n" value="7707083893" autocomplete="off"></div>
+  </div>
+  <output id="v-out" for="v-t v-n"></output>
+</section>
+
+<section aria-labelledby="h-tr">
+  <h2 id="h-tr">Транслитерация</h2>
+  <p class="hint">Паспортная (ГОСТ Р 52535.1), ISO 9 (обратимая) и «для адреса».</p>
+  <label for="t-s">Текст</label>
+  <textarea id="t-s" rows="2">Щербаков Юлия Ёлкина</textarea>
+  <label for="t-m">Схема</label>
+  <select id="t-m"><option value="passport">паспортная</option><option value="iso9">ISO 9 / ГОСТ 7.79-Б</option><option value="slug">для адреса (slug)</option></select>
+  <output id="t-out" for="t-s t-m"></output>
+  <output id="t-slug" for="t-s"></output>
+</section>
+
+<section aria-labelledby="h-ph">
+  <h2 id="h-ph">Телефон</h2>
+  <p class="hint">Приводит запись к «+7» и форматирует.</p>
+  <label for="p-n">Номер в любой записи</label>
+  <input id="p-n" value="8 (916) 123-45-67" inputmode="tel" autocomplete="off">
+  <output id="p-out" for="p-n"></output>
+</section>
+
+<section aria-labelledby="h-dur">
+  <h2 id="h-dur">Длительность</h2>
+  <p class="hint">Миллисекунды → «1 час 2 минуты 5 секунд».</p>
+  <label for="d-n">Миллисекунды</label>
+  <input id="d-n" type="text" inputmode="numeric" value="3725000">
+  <output id="d-out" for="d-n"></output>
+</section>
+
+<section aria-labelledby="h-use">
+  <h2 id="h-use">Подключение</h2>
+  <pre tabindex="0" role="region" aria-label="Пример подключения"><code>import { plural, numberToWords, isInn } from 'ru-kit';
+
+plural(5, ['яблоко', 'яблока', 'яблок']); // «яблок»
+numberToWords(21, { gender: 'f' });        // «двадцать одна»
+isInn('7707083893');                       // true</code></pre>
+</section>
+
+</div>
+</main>
+<footer>Сделано с помощью Claude. Лицензия MIT.</footer>
+<script type="module" src="app.js"></script>
+</body>
+</html>

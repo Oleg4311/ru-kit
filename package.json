@@ -1,0 +1,31 @@
+{
+  "name": "ru-kit",
+  "version": "0.1.0",
+  "type": "module",
+  "license": "MIT",
+  "description": "Русская локаль без зависимостей: числа и суммы прописью, склонение по числу, проверка ИНН/СНИЛС/ОГРН/БИК, транслитерация, телефоны",
+  "repository": "github:Oleg4311/ru-kit",
+  "homepage": "https://oleg4311.github.io/ru-kit/",
+  "keywords": ["russian", "plural", "number-to-words", "inn", "snils", "transliteration", "i18n"],
+  "engines": { "node": ">=22" },
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": { ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" } },
+  "files": ["dist", "README.md", "LICENSE"],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "node --test \"test/*.test.ts\"",
+    "build": "node scripts/build.mjs",
+    "site": "node scripts/build-site.mjs",
+    "serve": "node scripts/serve.mjs",
+    "e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.65.1",
+    "@types/node": "^24.0.0",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.9.0"
+  }
+}
