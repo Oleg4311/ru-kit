@@ -21,9 +21,9 @@ npm install @oleg4311/ru-kit
 Из релиза GitHub тоже можно, с контрольной суммой и подтверждением происхождения сборки:
 
 ```bash
-npm install https://github.com/Oleg4311/ru-kit/releases/download/v0.1.2/oleg4311-ru-kit-0.1.2.tgz
+npm install https://github.com/Oleg4311/ru-kit/releases/download/v0.1.3/oleg4311-ru-kit-0.1.3.tgz
 sha256sum -c SHA256SUMS
-gh attestation verify oleg4311-ru-kit-0.1.2.tgz --repo Oleg4311/ru-kit
+gh attestation verify oleg4311-ru-kit-0.1.3.tgz --repo Oleg4311/ru-kit
 ```
 
 Требуется Node.js 22 или новее; в браузере работает любой современный (ES2022). Только ESM.
