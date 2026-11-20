@@ -15,6 +15,7 @@ jobs:
         with:
           node-version: 24
           cache: npm
+          registry-url: https://registry.npmjs.org
       - run: npm ci
       - name: Версия в package.json должна совпадать с тегом
         run: test "v$(node -p "require('./package.json').version")" = "$GITHUB_REF_NAME"
@@ -38,3 +39,7 @@ jobs:
           gh release create "$GITHUB_REF_NAME" dist-pack/*.tgz dist-pack/SHA256SUMS
           --title "ru-kit $GITHUB_REF_NAME"
           --notes "Пакет ru-kit (tarball). Установка: npm install https://github.com/Oleg4311/ru-kit/releases/download/$GITHUB_REF_NAME/oleg4311-ru-kit-${GITHUB_REF_NAME#v}.tgz. Проверка: sha256sum -c SHA256SUMS и gh attestation verify <файл> --repo Oleg4311/ru-kit."
+      # Публикация в npm по доверенной публикации (OIDC): без токенов, с подтверждением происхождения.
+      # Идёт последней: если npm недоступен, релиз GitHub уже выпущен.
+      - name: Публикация в npm
+        run: npm publish
