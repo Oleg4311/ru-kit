@@ -23,7 +23,7 @@ writeFileSync(join(app, 'package.json'), JSON.stringify({ name: 'smoke', private
 run(npm, ['install', '--no-audit', '--no-fund', join(work, packed.filename)], app);
 writeFileSync(
   join(app, 'main.mjs'),
-  `import { plural, numberToWords, amountInWords, isInn, normalizePhone, transliterate } from 'ru-kit';
+  `import { plural, numberToWords, amountInWords, isInn, normalizePhone, transliterate } from '@oleg4311/ru-kit';
 console.log(JSON.stringify([
   plural(5, ['яблоко', 'яблока', 'яблок']),
   numberToWords(2026),

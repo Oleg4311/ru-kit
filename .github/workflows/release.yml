@@ -37,4 +37,4 @@ jobs:
         run: >
           gh release create "$GITHUB_REF_NAME" dist-pack/*.tgz dist-pack/SHA256SUMS
           --title "ru-kit $GITHUB_REF_NAME"
-          --notes "Пакет ru-kit (tarball). Установка: npm install https://github.com/Oleg4311/ru-kit/releases/download/$GITHUB_REF_NAME/ru-kit-${GITHUB_REF_NAME#v}.tgz. Проверка: sha256sum -c SHA256SUMS и gh attestation verify <файл> --repo Oleg4311/ru-kit."
+          --notes "Пакет ru-kit (tarball). Установка: npm install https://github.com/Oleg4311/ru-kit/releases/download/$GITHUB_REF_NAME/oleg4311-ru-kit-${GITHUB_REF_NAME#v}.tgz. Проверка: sha256sum -c SHA256SUMS и gh attestation verify <файл> --repo Oleg4311/ru-kit."

@@ -12,17 +12,18 @@
 
 ## Установка
 
-Пакет пока не опубликован в npm (для этого нужен аккаунт npm), поэтому ставится из релиза GitHub:
-
 ```bash
-npm install https://github.com/Oleg4311/ru-kit/releases/download/v0.1.0/ru-kit-0.1.0.tgz
+npm install @oleg4311/ru-kit
 ```
 
-Релиз содержит контрольную сумму и подтверждение происхождения сборки:
+(Имя без области, `ru-kit`, npm не разрешил: оно слишком похоже на чужой пакет `rukit`.)
+
+Из релиза GitHub тоже можно, с контрольной суммой и подтверждением происхождения сборки:
 
 ```bash
+npm install https://github.com/Oleg4311/ru-kit/releases/download/v0.1.1/oleg4311-ru-kit-0.1.1.tgz
 sha256sum -c SHA256SUMS
-gh attestation verify ru-kit-0.1.0.tgz --repo Oleg4311/ru-kit
+gh attestation verify oleg4311-ru-kit-0.1.1.tgz --repo Oleg4311/ru-kit
 ```
 
 Требуется Node.js 22 или новее; в браузере работает любой современный (ES2022). Только ESM.
@@ -30,7 +31,7 @@ gh attestation verify ru-kit-0.1.0.tgz --repo Oleg4311/ru-kit
 ## Возможности
 
 ```ts
-import { plural, count, numberToWords, amountInWords, isInn, normalizePhone, transliterate, humanizeDuration } from 'ru-kit';
+import { plural, count, numberToWords, amountInWords, isInn, normalizePhone, transliterate, humanizeDuration } from '@oleg4311/ru-kit';
 
 plural(21, ['яблоко', 'яблока', 'яблок']);   // «яблоко»
 count(1234567, ['рубль', 'рубля', 'рублей']); // «1 234 567 рублей» (с неразрывными пробелами)
@@ -77,7 +78,6 @@ relativeTime(Date.now() - 5 * 60_000);   // «5 минут назад»
 - **Реквизиты проверяются арифметически.** `isInn(...) === true` означает «контрольная цифра сходится», а не «такая организация существует».
 - **`amountInWords` для `number` округляет до двух знаков** через `toFixed(2)`, поэтому для точных денег передавайте строку (`'1.005'`).
 - **Телефоны** — только российский план нумерации (+7); определения оператора или региона нет.
-- **Не пакет npm**: см. раздел «Установка». Публикация в npm потребует аккаунта и trusted publishing.
 
 ## Разработка
 
@@ -105,4 +105,4 @@ npm run e2e       # браузерные тесты (Playwright + axe)
 - `isInn`, `isSnils`, `isOgrn`, `isKpp`, `isBik`, `isBankAccount` — checksum validation of Russian tax and bank identifiers (arithmetic only; does not prove the entity exists).
 - `transliterate` (passport GOST R 52535.1, reversible ISO 9, URL slug), `normalizePhone`/`formatPhone` (+7), `humanizeDuration`/`relativeTime`.
 
-Not on npm yet: install from the GitHub release tarball (see above); releases carry SHA-256 sums and build provenance (`gh attestation verify`). Live playground: https://oleg4311.github.io/ru-kit/. MIT licensed. Built with Claude.
+Install: `npm install @oleg4311/ru-kit` (the unscoped name was rejected by npm as too similar to `rukit`). GitHub releases also carry SHA-256 sums and build provenance (`gh attestation verify`). Live playground: https://oleg4311.github.io/ru-kit/. MIT licensed. Built with Claude.
