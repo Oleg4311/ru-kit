@@ -1,6 +1,6 @@
 {
-  "name": "ru-kit",
-  "version": "0.1.0",
+  "name": "@oleg4311/ru-kit",
+  "version": "0.1.1",
   "type": "module",
   "license": "MIT",
   "description": "Русская локаль без зависимостей: числа и суммы прописью, склонение по числу, проверка ИНН/СНИЛС/ОГРН/БИК, транслитерация, телефоны",
@@ -52,5 +52,8 @@
   },
   "bugs": {
     "url": "https://github.com/Oleg4311/ru-kit/issues"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
