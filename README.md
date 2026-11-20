@@ -3,7 +3,7 @@
 [![CI](https://github.com/Oleg4311/ru-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/Oleg4311/ru-kit/actions/workflows/ci.yml)
 [Песочница](https://oleg4311.github.io/ru-kit/) · [Релизы](https://github.com/Oleg4311/ru-kit/releases)
 
-**Русская локаль для JavaScript и TypeScript: без зависимостей, без сети, 7,7 КБ в пакете.**
+**Русская локаль для JavaScript и TypeScript: без зависимостей, без сети, 11 КБ в пакете (вместе с README и типами).**
 Числа и суммы прописью, правильная форма слова по числу, проверка контрольных разрядов ИНН/СНИЛС/ОГРН/БИК/счёта, транслитерация по ГОСТ, российские телефоны, длительности.
 
 ![Песочница ru-kit](docs/screenshot.png)
